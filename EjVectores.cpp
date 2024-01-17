@@ -8,9 +8,8 @@ using namespace std; // Para no tener que usar el prefijo std
 // Permite capturar calificaciones, sacar su promedio, y encontrar la calificación más alta
 // No declara clases nuevas
 
-vector <int> calificaciones;
 
-void pideCalificaciones()
+void pideCalificaciones(vector<int> &calificaciones)
 {  int calificacion, indice = 0;
    char respuesta; 
 
@@ -28,7 +27,7 @@ void pideCalificaciones()
 }
 
  
-double calculaPromedio()
+double calculaPromedio(vector<int> calificaciones)
 {   
    double promedio = 0.0;
 
@@ -39,7 +38,7 @@ double calculaPromedio()
    return promedio;
 }
 
-int encontrarMejor(int &mejor)
+int encontrarMejor(int &mejor, vector<int> calificaciones)
 {
     int contador = -1;
     int indice = 0;
@@ -76,8 +75,10 @@ void despliegaMenu()
 int main()
 {
     // Declaramos variables de entrada
-    string opcion_str;
+    string opcionStr;
     int opcion, mejor,indice;
+    double promedio;
+    vector <int> calificaciones;
 
     // Todo el código se va a repetir hasta que el usuario indique que quiere terminar
     do
@@ -86,27 +87,31 @@ int main()
         // Llamamos a la función que dibuja el menu
         despliegaMenu(); 
         //Pedimos la opción al usuario, la capturamos como string para no tener problemas si el usurio se equivoca
-        cin >> opcion_str;
+        cin >> opcionStr;
 
         // Cambiamos de string a entero
-        opcion = atoi(opcion_str.c_str());
+        opcion = atoi(opcionStr.c_str());
 
         // Y utilizamos un switch para ejecutar las diferentes opciones
         switch (opcion)
         {
         case 1:
             cout << "Pedir calificaciones"<<endl;
-            pideCalificaciones();
+            pideCalificaciones(calificaciones);
             system("pause");
             break;
         case 2:
             cout << "Calcular promedio"<<endl;
-            cout << "El promedio de las calificaciones es "<<calculaPromedio()<<endl;
+            promedio = calculaPromedio(calificaciones);
+            if (promedio <0)
+                cout << "Hubo un error en la captura de las calificaciones"<< endl;
+            else
+                cout << "El promedio de las calificaciones es "<<promedio<<endl;
             system("pause");
             break;
         case 3:
             cout << "Encontrar mejor"<<endl;
-            indice = encontrarMejor(mejor);
+            indice = encontrarMejor(mejor, calificaciones);
             cout << "El alumno # "<<indice+1<<" obtuvo la mejor calificacion que es "<<mejor<<endl;
             system("pause");
             break;
