@@ -79,6 +79,7 @@ int main()
     int opcion, mejor,indice;
     double promedio;
     vector <int> calificaciones;
+    
 
     // Todo el código se va a repetir hasta que el usuario indique que quiere terminar
     do
